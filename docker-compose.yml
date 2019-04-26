@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  web:
+    image: django-bancos
+    build: .
+    env_file: .env
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/django-bancos
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    volumes:
+      - ./.data/postgres:/var/lib/postgresql/data
